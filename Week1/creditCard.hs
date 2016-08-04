@@ -1,19 +1,17 @@
 {-Validating credit card numbers-}
 
 
---Get every second number a list--
-getEverySecondDouble :: [Int] -> [Int]
-getEverySecondDouble [] = []
-getEverySecondDouble (x:[]) = []
-getEverySecondDouble xs = [(xs !! 0)*2] ++ getEverySecondDouble (drop 2 xs)
+{- Exercise 1: We need to first find the digits of a number.-}
 
---Get every non double--
-getEveryNonDouble :: [Int] -> [Int]
-getEveryNonDouble [] = []
-getEveryNonDouble (x:[]) = []
-getEveryNonDouble xs = [(xs !! 1)] ++ getEveryNonDouble (drop 2 xs)
 
-isCardValid :: [Int] -> Bool
-isCardValid xs = if (sum (getEverySecondDouble xs)) + (sum (getEveryNonDouble xs)) `mod` 10 == 0
-        then True
-        else False
+
+toDigits :: Integer -> [Integer]
+toDigits n
+    | n > 0 = toDigits (n `div` 10) ++ [n `mod` 10]
+    | otherwise = []
+
+
+toDigitsRev :: Integer -> [Integer]
+toDigitsRev n
+    |  n > 0 = n `mod` 10 : toDigitsRev (n `div` 10)
+    |  otherwise = []
