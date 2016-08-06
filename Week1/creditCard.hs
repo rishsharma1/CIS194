@@ -33,6 +33,21 @@ Example: doubleEveryOther [1,2,3] == [1,4,3]
 -}
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther (reverse -> (x:y:zs)) =
-    doubleEveryOther (reverse zs) ++ [2*y, x]
-doubleEveryOther _ = []
+doubleEveryOther = zipWith (*) $ cycle [1,2]
+
+{-Exercise 3: The output of doubleEveryOther has a mix of one-digit and
+and two-digit numbers. 
+
+Example: sumDigits [16,7,12,5] = 1 + 6 + 7 + 1 + 2 + 5 = 22
+
+-}
+sumDigits :: [Integer] -> Integer
+sumDigits x = sum (map (sum . toDigits) x)
+
+
+{-Exercise 4: -}
+validate :: Integer -> Bool
+validate n
+    | n > 0 =  (sumDigits (doubleEveryOther (toDigitsRev n))) `mod` 10 == 0
+    | otherwise = False
+
